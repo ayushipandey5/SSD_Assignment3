@@ -1,9 +1,28 @@
+monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 def Month(m):
     months = [['January','February','March','April','May','June','July','August','September','October','November','December'],['Jan','Feb','Apr','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']]
-    if len(m) == 4:
+    if len(m) == 3:
         return (months[1].index(m) + 1)
     else:
         return (months[0].index(m) + 1)
+
+def countLeapYears(dateF1): 
+    years = int(dateF1[0])
+    if (int(dateF1[1]) <= 2) : 
+        years-= 1
+    return int(years // 4 - years // 100 + years // 400 ) 
+
+def getDifference(dateF1, dateF2) : 
+    n1 = int(dateF1[0]) * 365 + int(dateF1[2])  
+    for i in range(0, int(dateF1[1]) - 1) : 
+        n1 += monthDays[i]  
+    n1 += countLeapYears(dateF1)  
+    n2 = int(dateF2[0]) * 365 + int(dateF2[2])
+    for i in range(0, int(dateF2[1]) - 1) : 
+        n2 += monthDays[i]  
+    n2 += countLeapYears(dateF2)  
+    return (n2 - n1)  
+   
 
 def DateFormat(date1):
     year = 0
@@ -38,7 +57,7 @@ def DateFormat(date1):
         year = temp[0]
         month = d1[1]
         date = d1[0].strip()
-    return [year,month,date]
+    return [str(year),str(month),str(date)]
 
 from datetime import date
 
@@ -65,7 +84,6 @@ if len(dateF2[2]) == 2:
     if(temp[0] == '0'):
         dateF2[2] = temp[1]
 
-
 if len(dateF1[1]) == 2:
     temp = dateF1[1]
     if(temp[0] == '0'):
@@ -75,21 +93,9 @@ if len(dateF2[1]) == 2:
     if(temp[0] == '0'):
         dateF2[1] = temp[1]
 
-y1 = int(dateF1[0])
-y2 = int(dateF2[0])
-
-m1 = int(dateF1[1])
-m2 = int(dateF2[1])
-
-dt1 = int(dateF1[2])
-dt2 = int(dateF2[2])
-
-f_date = date(y1,m1,dt1)
-l_date = date(y2,m2,dt2)
-delta = l_date - f_date
-
+delta = getDifference(dateF1,dateF2)
 
 f1 = open("output.txt","a")
-f1.write(str(delta.days))
+f1.write(str(delta))
 f1.write(" Days")
 f1.close()
