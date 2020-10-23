@@ -56,3 +56,40 @@ f1.close()
 dateF1 = DateFormat(date1)
 dateF2 = DateFormat(date2)
 
+if len(dateF1[2]) == 2:
+    temp = dateF1[2]
+    if(temp[0] == '0'):
+        dateF1[2] = temp[1]
+if len(dateF2[2]) == 2:
+    temp = dateF2[2]
+    if(temp[0] == '0'):
+        dateF2[2] = temp[1]
+
+
+if len(dateF1[1]) == 2:
+    temp = dateF1[1]
+    if(temp[0] == '0'):
+        dateF1[1] = temp[1]
+if len(dateF2[1]) == 2:
+    temp = dateF2[1]
+    if(temp[0] == '0'):
+        dateF2[1] = temp[1]
+
+y1 = int(dateF1[0])
+y2 = int(dateF2[0])
+
+m1 = int(dateF1[1])
+m2 = int(dateF2[1])
+
+dt1 = int(dateF1[2])
+dt2 = int(dateF2[2])
+
+f_date = date(y1,m1,dt1)
+l_date = date(y2,m2,dt2)
+delta = l_date - f_date
+
+
+f1 = open("output.txt","a")
+f1.write(str(delta.days))
+f1.write(" Days")
+f1.close()
