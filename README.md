@@ -21,3 +21,15 @@ I have assumed :
     * 01/10/1999
     * 01-10-1999
     * 01.10.1999
+
+## Question-3
+I have assumed:
+- Input busy slots are sorted and contains time between `9:00AM to 5:00PM`.
+- There will be two input files `Employee1.txt` and `Employee2.txt`, one for each employee having busy slots only for one date.
+- `Slot Duration` will be available through user input.
+- Output will in `output.txt` file.
+- Output will contain available slots for each employee, slot duration and common available slot.
+- If there is no common available slot then output will be `No common slot available`.
+
+## GitHub Repository -
+https://github.com/ayushipandey5/SSD_Assignment3a
