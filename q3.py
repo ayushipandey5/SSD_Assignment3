@@ -166,7 +166,11 @@ for i in lis:
                             e = e - 12.0
                         hr = int(e)
                         mn = int((e - float(hr)) * 60)
-                        s = str(hr) + ":" + str(mn)
+                        if len(str(mn)) == 2:
+                            s = str(hr) + ":" + str(mn)
+                        else:
+                            s = str(hr) + ":" + str(mn) + "0"
+
                         if hr == 12 or hr < 9:
                             s = s + "PM"
                         else:
@@ -180,7 +184,11 @@ for i in lis:
                             e = e - 12.0
                         hr = int(e)
                         mn = int((e - float(hr)) * 60)
-                        s = str(hr) + ":" + str(mn)
+                        if len(str(mn)) == 2:
+                            s = str(hr) + ":" + str(mn)
+                        else:
+                            s = str(hr) + ":" + str(mn) + "0"
+
                         if hr == 12 or hr < 9:
                             s = s + "PM"
                         else:
@@ -193,7 +201,11 @@ for i in lis:
                             e = e - 12.0
                         hr = int(e)
                         mn = int((e - float(hr)) * 60)
-                        s = str(hr) + ":" + str(mn)
+                        if len(str(mn)) == 2:
+                            s = str(hr) + ":" + str(mn)
+                        else:
+                            s = str(hr) + ":" + str(mn) + "0"
+
                         if hr == 12 or hr < 9:
                             s = s + "PM"
                         else:
@@ -205,8 +217,12 @@ for i in lis:
                         if(e>12.0):
                             e = e - 12.0
                         hr = int(e)
-                        mn = int((e - float(hr)) * 60)
-                        s = str(hr) + ":" + str(mn)
+                        mn = int((e - float(hr)) * 60) + "0"
+                        if len(str(mn)) == 2:
+                            s = str(hr) + ":" + str(mn)
+                        else:
+                            s = str(hr) + ":" + str(mn) + "0"
+
                         if hr == 12 or hr < 9:
                             s = s + "PM"
                         else:
