@@ -2,76 +2,54 @@ import json
 
 f = open('org.json',)
 data = json.load(f)
+f.close()
 
-print("Enter two EmpIds\n")
-a, b = input().split()
 
-name_a = a
-name_b = b
+print("Enter the EmpIds\n")
+ele = []
 
-level_a = -1
-level_b = -1
-level_p = -1
-
+ele = input().split()
+elements = [i for i in ele[1:]]
+size = len(elements)
+levels = [-1 for i in range(size)]
 
 for L in data:
     for dicts in data[L]:
-        if dicts["name"] == name_a:
-            level_a = int(L[1])
-        if dicts["name"] == name_b:
-            level_b = int(L[1])
+        if dicts["name"] in elements: 
+            levels[elements.index(dicts["name"])] = int(L[1])
 
+min_level = min(levels)
+if min_level == 0:
+    print("No leader")
+else:
+    par_at_min_level = [i for i in levels]
+    parents = [i for i in elements]
+    for i in range(size):
+        if par_at_min_level[i] != min_level:
+            plevel = par_at_min_level[i]
+            while plevel != min_level:
+                for L in data:
+                    for dicts in data[L]:
+                        if dicts["name"] == parents[i]:
+                            if int(L[1]) > 0:
+                                plevel = int(L[1]) -1
+                                parents[i] = dicts["parent"]
+            par_at_min_level[i] = plevel
 
-org_lev_a = level_a
-org_lev_b = level_b
-
-if level_a > level_b:
-    while(level_b != level_a):
-        for L in data:
-            for dicts in data[L]:
-                if dicts["name"] == name_a:
-                    if int(L[1]) > 0:
-                        level_a = int(L[1]) - 1
-                        name_a = dicts["parent"]
-
-if level_a < level_b:
-    while(level_b != level_a):
-        for L in data:
-            for dicts in data[L]:
-                if dicts["name"] == name_b:
-                    if int(L[1]) > 0:
-                        level_b = int(L[1]) -1
-                        name_b = dicts["parent"]
-
-if level_a == level_b:
-    parent = -1
-    if(name_a != name_b):
-        while name_a != name_b:
-            for L in data:
-                for dicts in data[L]:
-                    if dicts["name"] == name_a:
-                        if int(L[1]) > 0:
-                            level_a = int(L[1]) -1
-                            name_a = dicts["parent"]
-                    if dicts["name"] == name_b:
-                        if int(L[1]) > 0:
-                            level_b = int(L[1]) -1
-                            name_b = dicts["parent"]
-        level_p = level_a 
-        parent = name_a
-        if level_p != -1:
-            print(str(parent) + "\n" + str(parent) + " is " + str(org_lev_a - level_p) + " levels above " + str(a) + "\n" + str(parent) + " is " + str(org_lev_b - level_p) + " levels above " + str(b))
-    else:
-        for L in data:
-            for dicts in data[L]:
-                if dicts["name"] == name_b:
-                    if int(L[1]) > 0:
-                        level_p = int(L[1]) -1
-                        parent = dicts["parent"]
-                    else:
-                        print("No Leader")
-                        break
-        if level_p != -1:
-            print(str(parent) + "\n" + str(parent) + " is " + str(org_lev_a - level_p) + " levels above " + str(a) + "\n" + str(parent) + " is " + str(org_lev_b - level_p) + " levels above " + str(b))
-
-f.close()
+    res = all(ele == parents[0] for ele in parents)
+    if (res == False):
+        while(res == False):
+            for i in range(size):
+                if par_at_min_level[i] > 0:
+                    for L in data:
+                        for dicts in data[L]:
+                            if dicts["name"] == parents[i]:
+                                if int(L[1]) > 0:
+                                    plevel = int(L[1]) -1
+                                    parents[i] = dicts["parent"]
+                par_at_min_level[i] = plevel                
+            res = all(ele == parents[0] for ele in parents)
+    if (res):
+        print("Common leader : " + parents[0])
+        for i in range(size):
+            print("Leader " + parents[0] + " is " + str(levels[i] - par_at_min_level[i]) +" levels above employee " + elements[i])
