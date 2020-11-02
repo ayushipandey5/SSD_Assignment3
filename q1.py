@@ -49,7 +49,20 @@ else:
                                     parents[i] = dicts["parent"]
                 par_at_min_level[i] = plevel                
             res = all(ele == parents[0] for ele in parents)
-    if (res):
+        print("Common leader : " + parents[0])
+        for i in range(size):
+            print("Leader " + parents[0] + " is " + str(levels[i] - par_at_min_level[i]) +" levels above employee " + elements[i])
+        
+    elif (res):
+        for i in range(size):
+            if par_at_min_level[i] > 0:
+                for L in data:
+                    for dicts in data[L]:
+                            if dicts["name"] == parents[i]:
+                                if int(L[1]) > 0:
+                                    plevel = int(L[1]) -1
+                                    parents[i] = dicts["parent"]
+                par_at_min_level[i] = plevel 
         print("Common leader : " + parents[0])
         for i in range(size):
             print("Leader " + parents[0] + " is " + str(levels[i] - par_at_min_level[i]) +" levels above employee " + elements[i])
