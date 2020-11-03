@@ -1,3 +1,4 @@
+import sys
 monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 def Month(m):
     months = [['January','February','March','April','May','June','July','August','September','October','November','December'],['Jan','Feb','Apr','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']]
@@ -22,15 +23,16 @@ def getDifference(dateF1, dateF2) :
         n2 += monthDays[i]  
     n2 += countLeapYears(dateF2)  
     return (n2 - n1)  
-   
 
-def DateFormat(date1):
+
+def DateFormat(date1,date_format):
     year = 0
     month = 0
     date = 0
     if date1.find("/") == -1:
         if date1.find("-") == -1:
             if date1.find(".") == -1:
+                # for 10th Sep, 2020 or for 10th September, 2020
                 d1 = date1.split()
                 year = d1[2]
                 temp = d1[1].split(",")
@@ -39,27 +41,59 @@ def DateFormat(date1):
                 temp = d1[0].strip()
                 date = temp[:-2]
             elif date1.find(".") != -1:
-                d1 = date1.split(".")
+                # for dd.mm.yyyy or mm.dd.yyyy
+                format = date_format.split(".")
+                if format[0] == "dd":
+                    # for dd.mm.yyyy
+                    d1 = date1.split(".")
+                    temp = d1[2].split("\n")
+                    year = temp[0]
+                    month = d1[1]
+                    date = d1[0].strip()
+                elif format[0] == "mm":
+                    # for mm.dd.yyyy
+                    d1 = date1.split(".")
+                    temp = d1[2].split("\n")
+                    year = temp[0]
+                    date = d1[1]
+                    month = d1[0].strip()
+
+        elif date1.find("-") != -1:
+            # for dd-mm-yyyy or mm-dd-yyyy
+            format = date_format.split("-")
+            if format[0] == "dd":
+                # for dd-mm-yyyy
+                d1 = date1.split("-")
                 temp = d1[2].split("\n")
                 year = temp[0]
                 month = d1[1]
                 date = d1[0].strip()
-        elif date1.find("-") != -1:
-            d1 = date1.split("-")
-            temp = d1[2].split("\n")
-            year = temp[0]
-            month = d1[1]
-            date = d1[0].strip()
-
+            elif format[0] == "mm":
+                # for mm-dd-yyyy
+                d1 = date1.split("-")
+                temp = d1[2].split("\n")
+                year = temp[0]
+                date = d1[1]
+                month = d1[0].strip()
     elif date1.find("/") != -1:
-        d1 = date1.split("/")
-        temp = d1[2].split("\n")
-        year = temp[0]
-        month = d1[1]
-        date = d1[0].strip()
-    return [str(year),str(month),str(date)]
+        # for dd/mm/yyyy or mm/dd/yyyy
+            format = date_format.split("/")
+            if format[0] == "dd":
+                # for dd/mm/yyyy        
+                d1 = date1.split("/")
+                temp = d1[2].split("\n")
+                year = temp[0]
+                month = d1[1]
+                date = d1[0].strip()
+            elif format[0] == "mm":
+                # for mm/dd/yyyy
+                d1 = date1.split("/")
+                temp = d1[2].split("\n")
+                year = temp[0]
+                date = d1[1]
+                month = d1[0].strip()
 
-from datetime import date
+    return [str(year),str(month),str(date)]
 
 f = open("date_calculator.txt","r")
 a = f.readline().split(":")
@@ -72,8 +106,16 @@ f1 = open("output.txt","w")
 f1.write("Date Difference:")
 f1.close()
 
-dateF1 = DateFormat(date1)
-dateF2 = DateFormat(date2)
+if(len(sys.argv) == 2):
+    arg = sys.argv
+    format = arg[1]
+elif(len(sys.argv) == 1):
+    format = " "
+
+
+
+dateF1 = DateFormat(date1,format)
+dateF2 = DateFormat(date2,format)
 
 if len(dateF1[2]) == 2:
     temp = dateF1[2]
@@ -93,7 +135,7 @@ if len(dateF2[1]) == 2:
     if(temp[0] == '0'):
         dateF2[1] = temp[1]
 
-delta = getDifference(dateF1,dateF2)
+delta = abs(getDifference(dateF1,dateF2))
 
 f1 = open("output.txt","a")
 f1.write(str(delta))
