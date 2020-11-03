@@ -1,5 +1,4 @@
-import json
-import os, os.path
+import os, os.path, json, datetime
 
 data = []
 
@@ -66,6 +65,31 @@ def availableSlot(data1):
 
     return lis1
 
+def slotAvail(lis,slot):
+    ans = []
+    for i in lis:
+        temp = i.split(" - ")
+        time1 = temp[0]
+        time2 = temp[1]
+        tem1 = time1.split(":")
+        h1 = int(tem1[0])
+        m1 = tem1[1][:2]
+        apm1 = tem1[1][-2:]
+        if apm1 == "PM" and h1 != 12:
+            h1 += 12
+        final_time1 = float(h1) + float(float(m1)/60)
+        tem2 = time2.split(":")
+        h2 = int(tem2[0])
+        m2 = tem2[1][:2]
+        apm2 = tem2[1][-2:]
+        if apm2 == "PM" and h2 != 12:
+            h2 += 12        
+        final_time2 = float(h2) + float(float(m2)/60)
+
+        if (final_time2 - final_time1) >= float(slot):
+            ans.append(i)
+    return ans
+
 print("Input slot duration\n")
 slot = input()
 
@@ -90,5 +114,9 @@ f.write("\n\nSlot Duration: ")
 f.write(slot + " hour\n")
 f.close()           
 
+availSlotDur = []
+
+for i in range(len(Employees)):
+    availSlotDur.append(slotAvail(lis[i],slot))
 
 
