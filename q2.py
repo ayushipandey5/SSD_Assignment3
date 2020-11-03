@@ -59,8 +59,6 @@ def DateFormat(date1):
         date = d1[0].strip()
     return [str(year),str(month),str(date)]
 
-from datetime import date
-
 f = open("date_calculator.txt","r")
 a = f.readline().split(":")
 b = f.readline().split(":")
@@ -93,7 +91,7 @@ if len(dateF2[1]) == 2:
     if(temp[0] == '0'):
         dateF2[1] = temp[1]
 
-delta = getDifference(dateF1,dateF2)
+delta = abs(getDifference(dateF1,dateF2))
 
 f1 = open("output.txt","a")
 f1.write(str(delta))
