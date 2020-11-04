@@ -153,11 +153,9 @@ if present == "true":
         if apm2 == "PM" and h2 != 12:
             h2 += 12        
         final_time2 = float(h2) + float(float(m2)/60)
-        # print(final_time1,final_time2)
 
         for j in range(len(Employees)):
             if (j != 0):
-                print("i",i,"j",j)
                 for k in availSlotDur[j]:
                     tempk = k.split(" - ")
                     timek1 = tempk[0]
@@ -177,37 +175,23 @@ if present == "true":
                         hk2 += 12        
                     final_timek2 = float(hk2) + float(float(mk2)/60)                
 
-                    print(final_timek1,final_timek2)
-                    if(final_time1 >= final_timek1) and (final_time2 >= final_timek2) and (final_timek2 >= final_time1) and (abs(final_time1 - final_timek2) >= float(slot)):
-                    
+                    if(final_time1 >= final_timek1) and (final_time2 >= final_timek2) and (final_timek2 >= final_time1) and (abs(final_time1 - final_timek2) >= float(slot)):                    
                         final_time2 = final_timek2
-                        print(final_time1,final_time2)
-                        print("1")
-
                         break
 
                     elif(final_time1 <= final_timek1) and (final_timek1 <= final_time2) and (final_time2 <= final_timek2) and (abs(final_timek1 - final_time2) >= float(slot)):
-                        # print("2")
                         final_time1 = final_timek1
-                        print(final_time1,final_time2)
-                        print("2")
                         break
                     elif(final_time1 <= final_timek1) and (final_time2 >= final_timek2) and (abs(final_timek2 - final_timek1) >= float(slot)):
-                        # print("3")
                         final_time1 = final_timek1
                         final_time2 = final_timek2
-                        print(final_time1,final_time2)
-                        print("3")
                         break
                     elif(final_time1 >= final_timek1) and (final_time2 <= final_timek2) and (abs(final_time1 - final_time2) >= float(slot)):
                         break
                     elif(final_time1 >= final_timek2):
                         pass
                     else:
-                        # print("4")
                         flag = "false"
-                        print(final_time1,final_time2)
-                        print("4")
                         break
                 if flag == "false":
                     break
