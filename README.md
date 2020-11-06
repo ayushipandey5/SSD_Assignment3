@@ -42,12 +42,13 @@
 ## Question 3-
 - Assumptions-
     - Input busy slots are sorted and contains time between `9:00AM to 5:00PM`.
-    -All input files `Employee*.txt` will be inside the directory`Employee`.
+    -All input files `Employee*.txt` will be inside the same directory as of `q3.py`.
     - `Slot Duration` will be available through user input.
     - Output will in `output.txt` file.
     - Output will contain available slots for each employee, slot duration and common available slot.
     - If there is no common available slot then output will be `No common slot available`.
 - Changes from Part A-
+    - Imported `glob` to get a list of all files as `Employee*.txt`.
     - Made `open_files` function which stores file descriptors in a list and also loads and returns json of input files in a list `data`.
     - Added `availableSlot` function which returns available slot for each employee.
     - Added `slotAvail` function which returns a list of available slot having hours more than or equal to `slot_duration`.
