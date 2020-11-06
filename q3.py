@@ -1,11 +1,11 @@
-import os, os.path, json, datetime
+import os, os.path, json, datetime, glob
 
 data = []
 
 def open_files(Employees):
     f = []
     for i in range(0,len(Employees)):
-        f.append(open("./Employee/"+Employees[i],"r"))
+        f.append(open(Employees[i],"r"))
     x = []
     for i in range(0,len(Employees)):
         x.append((f[i].read()).replace("\'","\""))
@@ -95,7 +95,7 @@ print("Input slot duration\n")
 slot = input()
 
 DIR = './Employee'
-Employees = [name for name in os.listdir(DIR) if os.path.isfile(os.path.join(DIR, name))]
+Employees = glob.glob('Employee*.txt')
 Employees.sort()
 
 data = open_files(Employees)
