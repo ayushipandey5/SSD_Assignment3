@@ -1,7 +1,7 @@
 import sys
 monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 def Month(m):
-    months = [['January','February','March','April','May','June','July','August','September','October','November','December'],['Jan','Feb','Apr','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']]
+    months = [['January','February','March','April','May','June','July','August','September','October','November','December'],['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']]
     if len(m) == 3:
         return (months[1].index(m) + 1)
     else:
@@ -43,55 +43,56 @@ def DateFormat(date1,date_format):
             elif date1.find(".") != -1:
                 # for dd.mm.yyyy or mm.dd.yyyy
                 format = date_format.split(".")
-                if format[0] == "dd":
-                    # for dd.mm.yyyy
-                    d1 = date1.split(".")
-                    temp = d1[2].split("\n")
-                    year = temp[0]
-                    month = d1[1]
-                    date = d1[0].strip()
-                elif format[0] == "mm":
+                if format[0] == "mm":
                     # for mm.dd.yyyy
                     d1 = date1.split(".")
                     temp = d1[2].split("\n")
                     year = temp[0]
                     date = d1[1]
                     month = d1[0].strip()
+                else:
+                    # for dd.mm.yyyy
+                    d1 = date1.split(".")
+                    temp = d1[2].split("\n")
+                    year = temp[0]
+                    month = d1[1]
+                    date = d1[0].strip()                
 
         elif date1.find("-") != -1:
             # for dd-mm-yyyy or mm-dd-yyyy
             format = date_format.split("-")
-            if format[0] == "dd":
-                # for dd-mm-yyyy
-                d1 = date1.split("-")
-                temp = d1[2].split("\n")
-                year = temp[0]
-                month = d1[1]
-                date = d1[0].strip()
-            elif format[0] == "mm":
+            if format[0] == "mm":
                 # for mm-dd-yyyy
                 d1 = date1.split("-")
                 temp = d1[2].split("\n")
                 year = temp[0]
                 date = d1[1]
                 month = d1[0].strip()
-    elif date1.find("/") != -1:
-        # for dd/mm/yyyy or mm/dd/yyyy
-            format = date_format.split("/")
-            if format[0] == "dd":
-                # for dd/mm/yyyy        
-                d1 = date1.split("/")
+            else:
+                # for dd-mm-yyyy
+                d1 = date1.split("-")
                 temp = d1[2].split("\n")
                 year = temp[0]
                 month = d1[1]
-                date = d1[0].strip()
-            elif format[0] == "mm":
+                date = d1[0].strip()            
+    elif date1.find("/") != -1:
+        # for dd/mm/yyyy or mm/dd/yyyy
+            format = date_format.split("/")
+            if format[0] == "mm":
                 # for mm/dd/yyyy
                 d1 = date1.split("/")
                 temp = d1[2].split("\n")
                 year = temp[0]
                 date = d1[1]
                 month = d1[0].strip()
+            else:
+                # for dd/mm/yyyy        
+                d1 = date1.split("/")
+                temp = d1[2].split("\n")
+                year = temp[0]
+                month = d1[1]
+                date = d1[0].strip()
+            
 
     return [str(year),str(month),str(date)]
 
