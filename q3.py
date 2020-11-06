@@ -94,7 +94,6 @@ def slotAvail(lis,slot):
 print("Input slot duration\n")
 slot = input()
 
-DIR = './Employee'
 Employees = glob.glob('Employee*.txt')
 Employees.sort()
 
