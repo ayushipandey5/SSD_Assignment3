@@ -14,6 +14,11 @@ def open_files(Employees):
     
     return data
 
+def ifNoon(start_,startAPM,temp):
+    if startAPM == "PM" and int(temp) != 12:
+        start_ = start_ + 12
+    return start_
+    
 
 def availableSlot(data1):
     date = ""
@@ -39,24 +44,33 @@ def availableSlot(data1):
                 startAPM = temp[1][-2:]
                 strtAPM = temp1[1][-2:]
                 endAPM = temp2[1][-2:]
-                if startAPM == "PM" and int(temp[0]) != 12:
-                    start_ = start_ + 12
-                if strtAPM == "PM" and int(temp1[0]) != 12:
-                    strt = strt + 12
-                if endAPM == "PM"  and int(temp2[0]) != 12:
-                    end_ = end_ + 12                            
-                if start_ < strt:
-                    s = start + " - " + j[0]
-                    lis1.append(s)
+                start_ = ifNoon(start_,startAPM,int(temp[0]))
+                strt = ifNoon(strt,strtAPM,int(temp1[0]))
+                end_ = ifNoon(end_,endAPM,int(temp2[0]))
+                # if startAPM == "PM" and int(temp[0]) != 12:
+                #     start_ = start_ + 12
+                # if strtAPM == "PM" and int(temp1[0]) != 12:
+                #     strt = strt + 12
+                # if endAPM == "PM"  and int(temp2[0]) != 12:
+                #     end_ = end_ + 12    
+
+# no to comment                         
+                # if start_ < strt:
+                #     s = start + " - " + j[0]
+                #     lis1.append(s)
+                lis1 = toStandardTime(start_,strt,start,j[0],lis1)
                 start = j[1]
                 st = end_
 
     temp3 = slot_end.split(":")
     slot_end_ = float(temp3[0]) + float(float(temp3[1][:2])/60) + 12.0
 
-    if st < slot_end_ :
-        s = start + " - " + slot_end
-        lis1.append(s)
+# no to comment                         
+
+    # if st < slot_end_ :
+    #     s = start + " - " + slot_end
+    #     lis1.append(s)
+    lis1 = toStandardTime(st,slot_end_,start,slot_end,lis1)
     str_lis1 = str(lis1)
 
     f = open("output.txt","a")
@@ -65,6 +79,12 @@ def availableSlot(data1):
     f.close()
 
     return lis1
+
+def toStandardTime(a,b,startt,endd,lis):
+    if(a < b):
+        t = startt + " - " + endd
+        lis.append(t)
+    return lis
 
 def slotAvail(lis,slot):
     ans = []
@@ -76,15 +96,19 @@ def slotAvail(lis,slot):
         h1 = int(tem1[0])
         m1 = tem1[1][:2]
         apm1 = tem1[1][-2:]
-        if apm1 == "PM" and h1 != 12:
-            h1 += 12
+# not to comment        
+        # if apm1 == "PM" and h1 != 12:
+        #     h1 += 12
+        h1 = ifNoon(h1,apm1,h1)
         final_time1 = float(h1) + float(float(m1)/60)
         tem2 = time2.split(":")
         h2 = int(tem2[0])
         m2 = tem2[1][:2]
         apm2 = tem2[1][-2:]
-        if apm2 == "PM" and h2 != 12:
-            h2 += 12        
+# not to comment
+        # if apm2 == "PM" and h2 != 12:
+        #     h2 += 12        
+        h2 = ifNoon(h2,apm2,h2)
         final_time2 = float(h2) + float(float(m2)/60)
 
         if (final_time2 - final_time1) >= float(slot):
