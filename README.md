@@ -1,15 +1,8 @@
-# ASSIGNMENT - 3b
+# ASSIGNMENT - 3c
 ## Question 1 -
-- Assumptions:
-    - `org.json` file to be in the same directory as in `q1.py`.
-    - Employee Id to be string, strating from 001.
-    - Level 0 employee has no leader.
-    - Levels are given as L0 , L1 ...
-- Changes from Part A:
-    - In Part a, there were 2 sets of variable to store parents level and name , and employee's name and level. Here elements and their levels are stored in lists.
-    - Min level is calculated, if min level is 0 then `No leader`, else parent of each element at min level is derived from `org.json` and checked if parent same or not.
-    - If parents are still different then one level above parent of each elements is matched until a common leader is found.
-
+- Changes from Part B:
+    - In Part B, there were no functions used, here 
+    ![](/images/q1.png)
 ## Question 2 -
 - Assumptions:
     - Input file will be `date_calculator.txt` file, having 2 Input lines.
