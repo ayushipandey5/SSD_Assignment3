@@ -1,6 +1,6 @@
 monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 def Month(m):
-    months = [['January','February','March','April','May','June','July','August','September','October','November','December'],['Jan','Feb','Apr','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']]
+    months = [['January','February','March','April','May','June','July','August','September','October','November','December'],['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']]
     if len(m) == 3:
         return (months[1].index(m) + 1)
     else:
